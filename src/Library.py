@@ -32,21 +32,28 @@ class Library:
         for book in self.books:
             print(f"{book}")
 
-    def add_member(self, name):
-        if member.name == name:
-            print(f"{name} already exist.")
-            return
-        self.members.append(name)
-        print(f"{name} was successfully added.")
+    def add_member(self, member):
+        for existing_member in self.members:
+            if existing_member.name == member.name:
+                print(f"{member.name} already exists!")
+                return
 
-    def remove_member(self, name):
+        self.members.append(member)
+        print(f"{member} was successfully added")
+
+    def remove_member(self, member):
         try:
-            self.members.remove(name)
-            print(f"{name} was removed!")
+            for m in self.members:
+                if m.name == member.name:
+                    self.members.remove(m)
+                    print(f"{m.name} was removed!")
         except Exception:
-            print(f"{name} did not exist!")
+            print(f"{member} did not exist!")
 
     def list_members(self):
+        if not self.members:
+            print("no member here.")
+            return
         for member in self.members:
             print(f"{member}")
 
@@ -56,12 +63,14 @@ if __name__ == "__main__":
     print(lib)
     book = Book("ss", "66", available=True)
     member = Member("ali", 1, book.title)
-    lib.add_book(book)
+    member1 = Member("ali", 1, book.title)
+    # lib.add_book(book)
 
     lib.add_member(member)
-    lib.add_member(member)
+    lib.add_member(member1)
 
-    lib.list_books()
-    lib.remove_book("ss")
-    lib.list_books()
+    # lib.list_books()
+    # lib.remove_book("ss")
+    # lib.list_books()
+    lib.remove_member(member)
     lib.list_members()

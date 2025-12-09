@@ -5,7 +5,7 @@ class Member:
         self.borrowed_books = borrowed_books
 
     def __str__(self):
-        return f"member name is {self.name} with id: {self.id} and borrowed books are: {self.borrowed_books}"
+        return f"name: {self.name} , id: {self.id} , borrowed books are: {self.borrowed_books}"
 
 
 if __name__ == "__main__":
