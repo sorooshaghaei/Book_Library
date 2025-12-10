@@ -15,9 +15,11 @@ class Member:
         self.borrowed_books = borrowed_books or []
 
     def __str__(self):
-        return (
-            f"name: {self.name}, id: {self.id}, borrowed books: {self.borrowed_books}"
-        )
+        borrowed_titles = []
+        for book in self.borrowed_books:
+
+            borrowed_titles.append(book.title)
+        return f"name: {self.name}, id: {self.id}, borrowed books: {borrowed_titles}"
 
 
 class Library:
@@ -36,7 +38,7 @@ class Library:
                 print(f"{book.title} was removed.")
                 return
 
-        raise ValueError(f"{b.title} does not exist!")
+        raise ValueError(f"{book.title} does not exist!")
 
     def list_books(self):
         for book in self.books:
@@ -69,24 +71,24 @@ class Library:
             return
 
     def borrow_book(self, book, member):
-        if book.title not in self.books:
+        if book not in self.books:
             raise ValueError(f"{book.title} is not found")
 
-        if member.id not in self.members:
+        if member not in self.members:
             raise ValueError(f"{member.name} not in members")
 
         if not book.available:
-            raise ValueError(f"{book.titlw} is not available!")
+            raise ValueError(f"{book.title} is not available!")
 
         book.available = False
         member.borrowed_books.append(book)
         print(f"{member.name} has borrowed {book.title}.")
 
     def return_book(self, book, member):
-        if book.title not in self.books:
+        if book not in self.books:
             raise ValueError(f"{book.title} is not found")
 
-        if member.id not in self.members:
+        if member not in self.members:
             raise ValueError(f"{member.name} not in members")
 
         if book.available:
@@ -111,9 +113,9 @@ if __name__ == "__main__":
 
     lib.borrow_book(book1, member1)
 
-    lib.list_books()
+    # lib.list_books()
     lib.list_members()
 
-    lib.return_book(book1, member1)
-    lib.list_books()
-    lib.list_members()
+    # lib.return_book(book1, member1)
+    # lib.list_books()
+    # lib.list_members()
