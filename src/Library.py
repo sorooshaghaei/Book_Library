@@ -79,7 +79,7 @@ class Library:
             raise ValueError(f"{book.titlw} is not available!")
 
         book.available = False
-        member.borrowed_books.append(book.title)
+        member.borrowed_books.append(book)
         print(f"{member.name} has borrowed {book.title}.")
 
     def return_book(self, book, member):
@@ -93,7 +93,7 @@ class Library:
             raise ValueError(f"{book.title} is available!")
 
         book.available = True
-        member.borrowed_books.remove(book.title)
+        member.borrowed_books.remove(book)
         print(f"{member.name} has returned {book.title}.")
 
 
