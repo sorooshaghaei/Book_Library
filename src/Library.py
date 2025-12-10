@@ -33,7 +33,7 @@ class Library:
         for b in self.books:
             if b.title == book.title:
                 self.books.remove(b)
-                print(f"{b.title} was removed.")
+                print(f"{book.title} was removed.")
                 return
 
         raise ValueError(f"{b.title} does not exist!")
@@ -70,13 +70,13 @@ class Library:
 
     def borrow_book(self, book, member):
         if book not in self.books:
-            raise ValueError(f"{book.name} is not found")
+            raise ValueError(f"{book.title} is not found")
 
         if member not in self.members:
             raise ValueError(f"{member.name} not in members")
 
         if not book.available:
-            raise ValueError(f"{book.name} is not available!")
+            raise ValueError(f"{book.titlw} is not available!")
 
         book.available = False
         member.borrowed_books.append(book.title)
@@ -84,13 +84,13 @@ class Library:
 
     def return_book(self, book, member):
         if book not in self.books:
-            raise ValueError(f"{book.name} is not found")
+            raise ValueError(f"{book.title} is not found")
 
         if member not in self.members:
             raise ValueError(f"{member.name} not in members")
 
         if book.available:
-            raise ValueError(f"{book.name} is available!")
+            raise ValueError(f"{book.title} is available!")
 
         book.available = True
         member.borrowed_books.remove(book.title)
