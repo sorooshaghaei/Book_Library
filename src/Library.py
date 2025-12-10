@@ -55,7 +55,7 @@ class Library:
     def remove_member(self, member):
         for m in self.members:
             if m.id == member.id:
-                self.members.remove(member)
+                self.members.remove(m)
                 print(f"{member.name} was removed.")
                 return
 
@@ -69,10 +69,10 @@ class Library:
             return
 
     def borrow_book(self, book, member):
-        if book not in self.books:
+        if book.title not in self.books:
             raise ValueError(f"{book.title} is not found")
 
-        if member not in self.members:
+        if member.id not in self.members:
             raise ValueError(f"{member.name} not in members")
 
         if not book.available:
@@ -83,10 +83,10 @@ class Library:
         print(f"{member.name} has borrowed {book.title}.")
 
     def return_book(self, book, member):
-        if book not in self.books:
+        if book.title not in self.books:
             raise ValueError(f"{book.title} is not found")
 
-        if member not in self.members:
+        if member.id not in self.members:
             raise ValueError(f"{member.name} not in members")
 
         if book.available:
