@@ -117,13 +117,12 @@ class Library:
     def load_state(self):
         with open(self.file_name, "r") as f:
             # load books
-            lines = f.readlines()
-            for line in lines:
-                if line.strip():
-                    self.books = line.strip()
+            if f.readline() == "BOOKS":
+                for line in f.readlines():
+                    title, author, available = line.split("|")
+                self.books.append(Book(title, author, available))
 
             # load members
-            lines = f
 
 
 if __name__ == "__main__":
@@ -139,10 +138,14 @@ if __name__ == "__main__":
     lib.add_member(member2)
 
     lib.borrow_book(book1, member1)
+    # problem: it writes under the last one that soroosh borrowed book2
+    # it must update the soroosh1 list of borrowed books in txt file
+    # lib.borrow_book(book2, member1)
 
     # lib.list_books()
     lib.list_members()
     lib.save_state()
+    lib.load_state()
 
     # lib.return_book(book1, member1)
     # lib.list_books()
