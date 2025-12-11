@@ -17,8 +17,8 @@ class Member:
     def __str__(self):
         borrowed_titles = []
         for book in self.borrowed_books:
-
             borrowed_titles.append(book.title)
+
         return f"name: {self.name}, id: {self.id}, borrowed books: {borrowed_titles}"
 
 
