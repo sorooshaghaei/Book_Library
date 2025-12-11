@@ -109,7 +109,10 @@ class Library:
             # save members
             f.write("MEMBERS:\n")
             for member in self.members:
-                f.write(f"{member.name}|{member.id}|{member.borrowed_books}\n")
+                borrowed = []
+                for book in member.borrowed_books:
+                    borrowed.append(book.title)
+                    f.write(f"{member.name}|{member.id}|{borrowed}\n")
 
     def load_state(self):
         with open(self.file_name, "r") as f:

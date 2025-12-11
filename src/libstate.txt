@@ -2,5 +2,4 @@ BOOKS:
 book1|author1|False
 book2|author2|True
 MEMBERS:
-Soroosh|1|[<__main__.Book object at 0x109771730>]
-Soroosh2|2|[]
+Soroosh|1|['book1']
