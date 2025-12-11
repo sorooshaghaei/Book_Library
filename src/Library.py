@@ -109,15 +109,16 @@ class Library:
             # save members
             f.write("MEMBERS:\n")
             for member in self.members:
-                borrowed = []
+                titles = []
                 for book in member.borrowed_books:
-                    borrowed.append(book.title)
-                    f.write(f"{member.name}|{member.id}|{borrowed}\n")
+                    titles.append(book.title)
+                borrowed_titles = ",".join(titles)
+                f.write(f"{member.name}|{member.id}|{borrowed_titles}\n")
 
     def load_state(self):
         with open(self.file_name, "r") as f:
             # load books
-            if f.readline() == "BOOKS":
+            if f.read() == "BOOKS":
                 for line in f.readlines():
                     title, author, available = line.split("|")
                 self.books.append(Book(title, author, available))
@@ -140,7 +141,7 @@ if __name__ == "__main__":
     lib.borrow_book(book1, member1)
     # problem: it writes under the last one that soroosh borrowed book2
     # it must update the soroosh1 list of borrowed books in txt file
-    # lib.borrow_book(book2, member1)
+    lib.borrow_book(book2, member1)
 
     # lib.list_books()
     lib.list_members()

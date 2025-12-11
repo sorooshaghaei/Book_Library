@@ -1,5 +1,6 @@
 BOOKS:
 book1|author1|False
-book2|author2|True
+book2|author2|False
 MEMBERS:
-Soroosh|1|['book1']
+Soroosh|1|book1,book2
+Soroosh2|2|
