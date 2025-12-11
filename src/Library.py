@@ -26,6 +26,7 @@ class Library:
     def __init__(self):
         self.books = []
         self.members = []
+        self.file_name = "libstate.txt"
 
     def add_book(self, book):
         self.books.append(book)
@@ -98,6 +99,29 @@ class Library:
         member.borrowed_books.remove(book)
         print(f"{member.name} has returned {book.title}.")
 
+    def save_state(self):
+        with open(self.file_name, "w") as f:
+            # save book
+            f.write("BOOKS:\n")
+            for book in self.books:
+                f.write(f"{book.title}|{book.author}|{book.available}\n")
+
+            # save members
+            f.write("MEMBERS:\n")
+            for member in self.members:
+                f.write(f"{member.name}|{member.id}|{member.borrowed_books}\n")
+
+    def load_state(self):
+        with open(self.file_name, "r") as f:
+            # load books
+            lines = f.readlines()
+            for line in lines:
+                if line.strip():
+                    self.books = line.strip()
+
+            # load members
+            lines = f
+
 
 if __name__ == "__main__":
     lib = Library()
@@ -115,6 +139,7 @@ if __name__ == "__main__":
 
     # lib.list_books()
     lib.list_members()
+    lib.save_state()
 
     # lib.return_book(book1, member1)
     # lib.list_books()
