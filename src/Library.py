@@ -139,8 +139,6 @@ if __name__ == "__main__":
     lib.add_member(member2)
 
     lib.borrow_book(book1, member1)
-    # problem: it writes under the last one that soroosh borrowed book2
-    # it must update the soroosh1 list of borrowed books in txt file
     lib.borrow_book(book2, member1)
 
     # lib.list_books()
