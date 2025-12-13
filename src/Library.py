@@ -27,6 +27,7 @@ class Library:
         self.books = []
         self.members = []
         self.file_name = "libstate.txt"
+        self.load_state()  # so every time program runs, this runs also
 
     def add_book(self, book):
         self.books.append(book)
@@ -115,15 +116,19 @@ class Library:
                 borrowed_titles = ",".join(titles)
                 f.write(f"{member.name}|{member.id}|{borrowed_titles}\n")
 
-    def load_state(self):
-        with open(self.file_name, "r") as f:
-            # load books
-            if f.read() == "BOOKS":
-                for line in f.readlines():
-                    title, author, available = line.split("|")
-                self.books.append(Book(title, author, available))
+# I do not have the knowledge to implement load yet
+    # def load_state(self):
+    #     with open(self.file_name, "r") as f:
+    #         # load books
+    #         if f.readline() == "BOOKS:":
+    #             for line in f.readlines():
+    #                 title, author, available = line.split("|")
+    #                 self.books.append(Book(title, author, available))
+            
+            
+    #         print("load was successful")
 
-            # load members
+    #         # load members
 
 
 if __name__ == "__main__":
@@ -144,7 +149,7 @@ if __name__ == "__main__":
     # lib.list_books()
     lib.list_members()
     lib.save_state()
-    lib.load_state()
+    # lib.load_state()
 
     # lib.return_book(book1, member1)
     # lib.list_books()
