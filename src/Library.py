@@ -27,7 +27,7 @@ class Library:
         self.books = []
         self.members = []
         self.file_name = "libstate.txt"
-        self.load_state()  # so every time program runs, this runs also
+        # self.load_state()  # so every time program runs, this runs also
 
     def add_book(self, book):
         self.books.append(book)
