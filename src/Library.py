@@ -55,6 +55,14 @@ class Library:
         self.members.append(member)
         print(f"{member.name} was added.")
 
+    def remove_member(self,member):
+        
+        for m in self.members:
+            if m.id == member.id:
+                self.members.remove(member)
+                print(f"{member.name} was deleted.")
+            else: print(f"{member.name} not found!")
+
 
 if __name__ == "__main__":
     book1 = Book("book1", "author1")
@@ -69,5 +77,6 @@ if __name__ == "__main__":
     # lib.list_books()
     lib.add_member(member1)
     lib.add_member(member2)
+    lib.remove_member(member1)
 
     print()
