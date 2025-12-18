@@ -5,7 +5,7 @@ class Book:
         self.available = available
 
     def __str__(self):
-        return f"Book: {self.title}, author: {self.author}, available: {self.available}"
+        return f"{self.title}|{self.author}|{self.available}"
 
 
 class Member:
@@ -18,139 +18,56 @@ class Member:
         borrowed_titles = []
         for book in self.borrowed_books:
             borrowed_titles.append(book.title)
-
-        return f"name: {self.name}, id: {self.id}, borrowed books: {borrowed_titles}"
+        return f"{self.name}|{self.id}|{borrowed_titles}"
 
 
 class Library:
     def __init__(self):
         self.books = []
         self.members = []
-        self.file_name = "libstate.txt"
-        # self.load_state()  # so every time program runs, this runs also
+        self.filename = "libstate.txt"
 
     def add_book(self, book):
-        self.books.append(book)
-        print(f"Book {book.title} was added.")
+        if book not in self.books:
+            self.books.append(book)
+            return print(f"{book.title} was added to Library.")
+        else:
+            print(f"{book.title} already exists!")
 
     def remove_book(self, book):
-        for b in self.books:
-            if b.title == book.title:
-                self.books.remove(b)
-                print(f"{book.title} was removed.")
-                return
-
-        raise ValueError(f"{book.title} does not exist!")
+        if book not in self.books:
+            print(f"{book.title} does not exists!")
+        else:
+            self.books.remove(book)
+            print(f"{book.title} was removed.")
 
     def list_books(self):
         for book in self.books:
-            print(f"{book}")
+            print(book)
         if not self.books:
-            print("no book here!")
+            print("There is no book here...")
 
     def add_member(self, member):
         for m in self.members:
             if m.id == member.id:
-                print(f"{member.name} already exist")
+                print(f"{member.name} with id:{member.id} already exists.")
                 return
         self.members.append(member)
         print(f"{member.name} was added.")
 
-    def remove_member(self, member):
-        for m in self.members:
-            if m.id == member.id:
-                self.members.remove(m)
-                print(f"{member.name} was removed.")
-                return
-
-        raise ValueError(f"{member.name} was not a member!")
-
-    def list_members(self):
-        for member in self.members:
-            print(f"{member}")
-        if not self.members:
-            print("no member yet...")
-            return
-
-    def borrow_book(self, book, member):
-        if book not in self.books:
-            raise ValueError(f"{book.title} is not found")
-
-        if member not in self.members:
-            raise ValueError(f"{member.name} not in members")
-
-        if not book.available:
-            raise ValueError(f"{book.title} is not available!")
-
-        book.available = False
-        member.borrowed_books.append(book)
-        print(f"{member.name} has borrowed {book.title}.")
-
-    def return_book(self, book, member):
-        if book not in self.books:
-            raise ValueError(f"{book.title} is not found")
-
-        if member not in self.members:
-            raise ValueError(f"{member.name} not in members")
-
-        if book.available:
-            raise ValueError(f"{book.title} is available!")
-
-        book.available = True
-        member.borrowed_books.remove(book)
-        print(f"{member.name} has returned {book.title}.")
-
-    def save_state(self):
-        with open(self.file_name, "w") as f:
-            # save book
-            f.write("BOOKS:\n")
-            for book in self.books:
-                f.write(f"{book.title}|{book.author}|{book.available}\n")
-
-            # save members
-            f.write("MEMBERS:\n")
-            for member in self.members:
-                titles = []
-                for book in member.borrowed_books:
-                    titles.append(book.title)
-                borrowed_titles = ",".join(titles)
-                f.write(f"{member.name}|{member.id}|{borrowed_titles}\n")
-
-# I do not have the knowledge to implement load yet
-    # def load_state(self):
-    #     with open(self.file_name, "r") as f:
-    #         # load books
-    #         if f.readline() == "BOOKS:":
-    #             for line in f.readlines():
-    #                 title, author, available = line.split("|")
-    #                 self.books.append(Book(title, author, available))
-            
-            
-    #         print("load was successful")
-
-    #         # load members
-
 
 if __name__ == "__main__":
-    lib = Library()
     book1 = Book("book1", "author1")
     book2 = Book("book2", "author2")
-    member1 = Member("Soroosh", 1, None)
-    member2 = Member("Soroosh2", 2, None)
-    lib.add_book(book1)
-    lib.add_book(book2)
 
+    member1 = Member("member1", 1, None)
+    member2 = Member("member2", 2, None)
+
+    lib = Library()
+    lib.add_book(book1)
+    # lib.add_book(book2)
+    # lib.list_books()
     lib.add_member(member1)
     lib.add_member(member2)
 
-    lib.borrow_book(book1, member1)
-    lib.borrow_book(book2, member1)
-
-    # lib.list_books()
-    lib.list_members()
-    lib.save_state()
-    # lib.load_state()
-
-    # lib.return_book(book1, member1)
-    # lib.list_books()
-    # lib.list_members()
+    print()
