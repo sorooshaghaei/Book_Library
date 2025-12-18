@@ -56,13 +56,17 @@ class Library:
         print(f"{member.name} was added.")
 
     def remove_member(self,member):
-        
         for m in self.members:
             if m.id == member.id:
                 self.members.remove(member)
                 print(f"{member.name} was deleted.")
             else: print(f"{member.name} not found!")
 
+    def list_members(self):
+        if not self.members:
+            print("There is no member yet...")
+        for member in self.members:
+            print(member)
 
 if __name__ == "__main__":
     book1 = Book("book1", "author1")
@@ -73,10 +77,13 @@ if __name__ == "__main__":
 
     lib = Library()
     lib.add_book(book1)
-    # lib.add_book(book2)
+    lib.add_book(book2)
     # lib.list_books()
     lib.add_member(member1)
     lib.add_member(member2)
-    lib.remove_member(member1)
+    # lib.list_members()
+    # lib.remove_member(member1)
+    # lib.remove_member(member2)
+    # lib.list_members()
 
     print()
