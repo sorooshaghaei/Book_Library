@@ -28,18 +28,20 @@ class Library:
         self.filename = "libstate.txt"
 
     def add_book(self, book):
-        if book not in self.books:
-            self.books.append(book)
-            return print(f"{book.title} was added to Library.")
-        else:
-            print(f"{book.title} already exists!")
+        for b in self.books:
+            if b.title == book.title:
+                print(f"{b.title} by author:{b.author} already exists.")
+                return
+        self.books.append(book)
+        print(f"{book.title} was added.")
 
     def remove_book(self, book):
-        if book not in self.books:
-            print(f"{book.title} does not exists!")
-        else:
-            self.books.remove(book)
-            print(f"{book.title} was removed.")
+        for b in self.books:
+            if b.title == book.title:
+                self.books.remove(b)
+                print(f"{b.title} was removed.")
+                return
+        print(f"{book.title} does not exist!")
 
     def list_books(self):
         for book in self.books:
