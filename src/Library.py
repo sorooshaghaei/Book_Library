@@ -71,16 +71,39 @@ class Library:
         for member in self.members:
             print(member)
 
+    def borrow_book(self, member, book):
+        member_ids=[]
+        for m in self.members:
+            member_ids.append(m.id)
+        if member.id not in member_ids:
+            raise ValueError(f"{member.name} is not a member!")
 
+        book_titles=[]
+        for b in self.books:
+            book_titles.append(b.title)
+        if book.title not in book_titles:
+            raise ValueError(f"{book.title} is not in library!")
+
+        if book.available:
+            member.borrowed_books.append(book)
+            print(f"{book.title} was borrowed by {member.name}.")
+            book.available=False
+        else:
+            raise ValueError(f"{book.title} is not available!")
 
 
 
 if __name__ == "__main__":
-    book1 = Book("book1", "author1")
-    book2 = Book("book2", "author2")
+    book1 = Book("book 1", "author 1")
+    book2 = Book("book 2", "author 2")
+    book3 = Book("book 3", "author 3")  # defined but not added to lib
+    fake_book1 = Book("book 1", "author 1")  # same title, different object
 
-    member1 = Member("member1", 1, None)
-    member2 = Member("member2", 2, None)
+
+
+    member1 = Member("member 1", 1, None)
+    member2 = Member("member 2", 2, None)
+    member3 = Member("member 3", 3, None) # not added as a member
 
     lib = Library()
     lib.add_book(book1)
@@ -88,7 +111,11 @@ if __name__ == "__main__":
     # lib.list_books()
     lib.add_member(member1)
     lib.add_member(member2)
-    # lib.list_members()
+    lib.list_members()
+
+    lib.borrow_book(member1,book1) # book 1 was borrowed by member 1.
+    lib.borrow_book(member2,fake_book1) # book 1 was borrowed by member 2.
+
     # lib.remove_member(member1)
     # lib.remove_member(member2)
     # lib.list_members()
