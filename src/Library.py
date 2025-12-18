@@ -58,15 +58,20 @@ class Library:
     def remove_member(self,member):
         for m in self.members:
             if m.id == member.id:
-                self.members.remove(member)
-                print(f"{member.name} was deleted.")
-            else: print(f"{member.name} not found!")
+                self.members.remove(m)
+                print(f"{m.name} was deleted.")
+                return
+        print(f"{member.name} not found!")
 
     def list_members(self):
         if not self.members:
             print("There is no member yet...")
         for member in self.members:
             print(member)
+
+
+
+
 
 if __name__ == "__main__":
     book1 = Book("book1", "author1")
