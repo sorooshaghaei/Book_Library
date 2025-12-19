@@ -72,24 +72,31 @@ class Library:
             print(member)
 
     def borrow_book(self, member, book):
-        member_ids=[]
+        # check member
+        member_ids = []
         for m in self.members:
             member_ids.append(m.id)
         if member.id not in member_ids:
             raise ValueError(f"{member.name} is not a member!")
 
-        book_titles=[]
+        # find the actual book
+        library_book = None
         for b in self.books:
-            book_titles.append(b.title)
-        if book.title not in book_titles:
+            if b.title == book.title:
+                library_book = b
+                break
+
+        if not library_book:
             raise ValueError(f"{book.title} is not in library!")
 
-        if book.available:
-            member.borrowed_books.append(book)
-            print(f"{book.title} was borrowed by {member.name}.")
-            book.available=False
-        else:
+        # NOW you can check availability
+        if not library_book.available:
             raise ValueError(f"{book.title} is not available!")
+
+        library_book.available = False
+        member.borrowed_books.append(library_book)
+        print(f"{library_book.title} was borrowed by {member.name}.")
+
 
 
 
