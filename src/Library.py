@@ -73,29 +73,24 @@ class Library:
 
     def borrow_book(self, member, book):
         # check member
-        member_ids = []
-        for m in self.members:
-            member_ids.append(m.id)
-        if member.id not in member_ids:
-            raise ValueError(f"{member.name} is not a member!")
+        if member not in self.members:
+            print(f"{member.name} has not registered yet!")
 
         # find the actual book
-        library_book = None
-        for b in self.books:
-            if b.title == book.title:
-                library_book = b
-                break
-
-        if not library_book:
-            raise ValueError(f"{book.title} is not in library!")
+        if book not in self.books:
+            print(f"{book.title} does not exist!")
 
         # NOW you can check availability
-        if not library_book.available:
-            raise ValueError(f"{book.title} is not available!")
+        if not book.available:
+            raise ValueError(f"{book.title} is not available...") 
+        
+        # borrow action
+        book.available=False
+        member.borrowed_books.append(book)
+        print(f"{book.title} was borrowed by {member.name}.")
 
-        library_book.available = False
-        member.borrowed_books.append(library_book)
-        print(f"{library_book.title} was borrowed by {member.name}.")
+
+        
 
 
 
@@ -121,7 +116,8 @@ if __name__ == "__main__":
     lib.list_members()
 
     lib.borrow_book(member1,book1) # book 1 was borrowed by member 1.
-    lib.borrow_book(member2,fake_book1) # book 1 was borrowed by member 2.
+    lib.borrow_book(member2,book1) 
+    # lib.borrow_book(member1,fake_book1) 
 
     # lib.remove_member(member1)
     # lib.remove_member(member2)
