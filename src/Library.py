@@ -57,7 +57,7 @@ class Library:
         self.members.append(member)
         print(f"{member.name} was added.")
 
-    def remove_member(self,member):
+    def remove_member(self, member):
         for m in self.members:
             if m.id == member.id:
                 self.members.remove(m)
@@ -74,25 +74,41 @@ class Library:
     def borrow_book(self, member, book):
         # check member
         if member not in self.members:
-            print(f"{member.name} has not registered yet!")
+            raise ValueError(f"{member.name} has not registered yet!")
 
         # find the actual book
         if book not in self.books:
-            print(f"{book.title} does not exist!")
+            raise ValueError(f"{book.title} does not exist!")
 
-        # NOW you can check availability
+        # check availability
         if not book.available:
-            raise ValueError(f"{book.title} is not available...") 
-        
+            raise ValueError(f"{book.title} is not available...")
+
         # borrow action
-        book.available=False
+        book.available = False
         member.borrowed_books.append(book)
         print(f"{book.title} was borrowed by {member.name}.")
 
+    def return_book(self, member, book):
+        # check member
+        if member not in self.members:
+            raise ValueError(f"{member.name} has not registered yet!")
 
-        
+        # find the actual book
+        if book not in self.books:
+            raise ValueError(f"{book.title} does not exist!")
 
+        # check availability
+        if book.available:
+            raise ValueError(f"{book.title} is already available!")
 
+        if book not in member.borrowed_books:
+            raise ValueError(f"{member.name} has not borrowed this {book.title}!")
+
+        # return action
+        book.available = True
+        member.borrowed_books.remove(book)
+        print(f"{book.title} was returned by {member.name}")
 
 
 if __name__ == "__main__":
@@ -101,11 +117,9 @@ if __name__ == "__main__":
     book3 = Book("book 3", "author 3")  # defined but not added to lib
     fake_book1 = Book("book 1", "author 1")  # same title, different object
 
-
-
     member1 = Member("member 1", 1, None)
     member2 = Member("member 2", 2, None)
-    member3 = Member("member 3", 3, None) # not added as a member
+    member3 = Member("member 3", 3, None)  # not added as a member
 
     lib = Library()
     lib.add_book(book1)
@@ -115,9 +129,12 @@ if __name__ == "__main__":
     lib.add_member(member2)
     lib.list_members()
 
-    lib.borrow_book(member1,book1) # book 1 was borrowed by member 1.
-    lib.borrow_book(member2,book1) 
-    # lib.borrow_book(member1,fake_book1) 
+    lib.borrow_book(member1, book1)  # book 1 was borrowed by member 1.
+    lib.borrow_book(member2, book2)
+    # lib.borrow_book(member1,fake_book1)
+
+    lib.return_book(member1, book1)
+
 
     # lib.remove_member(member1)
     # lib.remove_member(member2)
