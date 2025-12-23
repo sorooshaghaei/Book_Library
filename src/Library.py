@@ -138,32 +138,25 @@ class Library:
         for line in lines:
             line = line.strip()
 
-            # --- 1. CHECK FOR HEADERS (The Switch) ---
             if line == "BOOKS:":
-                flag = "books"  # Flip switch to books
-                continue  # Skip this line (don't try to parse "BOOKS:" as a book)
+                flag = "books" 
+                continue  
             elif line == "MEMBERS:":
-                flag = "members"  # Flip switch to members
-                continue  # Skip this line
+                flag = "members"  
+                continue 
 
-            # --- 2. PROCESS DATA BASED ON CURRENT FLAG ---
             if flag == "books":
-                # We are in book mode, so this line must be a book!
-                parts = line.split("|")  # e.g., ["book1", "author1", "True"]
+                # We are in book mode
+                title,author,available = line.split("|")
 
-                title = parts[0]
-                author = parts[1]
-                available = parts[2] == "True"  # Convert string to boolean
-
-                # Create and add the book
                 new_book = Book(title, author, available)
                 self.books.append(new_book)
 
             elif flag == "members":
                 name, id, borrowed = line.split("|")
-                borrowed_books=borrowed.split(",")
-
-                new_member = Member(name, id, borrowed_books)
+                borrowTitles=borrowed.split(",")
+            # You cannot assign strings where objects are expected
+                new_member = Member(name, id,borrowTitles)
                 self.members.append(new_member)
 
 
@@ -176,32 +169,32 @@ class Library:
 
 
 if __name__ == "__main__":
-    book1 = Book("book 1", "author 1")
-    book2 = Book("book 2", "author 2")
-    book3 = Book("book 3", "author 3")  # defined but not added to lib
-    fake_book1 = Book("book 1", "author 1")  # same title, different object
+    # book1 = Book("book 1", "author 1")
+    # book2 = Book("book 2", "author 2")
+    # book3 = Book("book 3", "author 3")  # defined but not added to lib
+    # fake_book1 = Book("book 1", "author 1")  # same title, different object
 
-    member1 = Member("member 1", 1, None)
-    member2 = Member("member 2", 2, None)
-    member3 = Member("member 3", 3, None)  # not added as a member
+    # member1 = Member("member 1", 1, None)
+    # member2 = Member("member 2", 2, None)
+    # member3 = Member("member 3", 3, None)  # not added as a member
 
     lib = Library()
-    lib.add_book(book1)
-    lib.add_book(book2)
-    # lib.list_books()
-    lib.add_member(member1)
-    lib.add_member(member2)
-    lib.list_members()
+    # lib.add_book(book1)
+    # lib.add_book(book2)
+    # # lib.list_books()
+    # lib.add_member(member1)
+    # lib.add_member(member2)
+    # lib.list_members()
 
-    lib.borrow_book(member1, book1)  # book 1 was borrowed by member 1.
-    lib.borrow_book(member2, book2)
+    # lib.borrow_book(member1, book1)  # book 1 was borrowed by member 1.
+    # lib.borrow_book(member2, book2)
     # lib.borrow_book(member1,fake_book1)
 
-    lib.return_book(member1, book1)
-    lib.save_state()
+    # lib.return_book(member1, book1)
+    # lib.save_state()
     lib.load_state()
-    # lib.list_books()
-    # lib.list_members()
+    lib.list_books()
+    lib.list_members()
     # # lib.remove_member(member1)
     # # lib.remove_member(member2)
     # # lib.list_members()
