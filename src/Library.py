@@ -111,13 +111,20 @@ class Library:
         print(f"{book.title} was returned by {member.name}")
 
     def save_state(self):
-        with open(self.filename , "w") as f:
+        with open(self.filename, "w") as f:
             f.write("BOOKS:\n")
             for book in self.books:
                 f.write(f"{book}\n")
             f.write("MEMBERS:\n")
             for member in self.members:
                 f.write(f"{member}\n")
+
+    def load_state(self):
+        # line.strip(): Removes the invisible "newline" character (\n) from the end of each line.
+        # line.split('|'): Chops the line into a list of pieces wherever it sees a |.
+        # Section Flags: A variable that tracks "where we are" in the file.
+        with open(self.filename, "r") as f:
+            content = f.readlines()
 
 
 #  save and load file....
@@ -126,13 +133,6 @@ class Library:
 # study Proba
 # study PA on paper
 # study image
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
@@ -159,7 +159,7 @@ if __name__ == "__main__":
 
     lib.return_book(member1, book1)
     lib.save_state()
-
+    lib.load_state()
     # lib.remove_member(member1)
     # lib.remove_member(member2)
     # lib.list_members()
