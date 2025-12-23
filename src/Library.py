@@ -128,13 +128,27 @@ class Library:
     def load_state(self):
         self.books=[]
         self.members=[]
-        flag=""
+        pointer=""
         try:
             with open(self.filename) as f:
                 lines=f.readlines()
         except FileNotFoundError:
             print("could not find the saved file!")
             return
+        
+        for line in lines:
+            line=line.strip()
+            if line=="BOOKS:":
+                pointer="books"
+                continue
+            if line=="MEMBERS:":
+                pointer="members"
+                continue
+
+            if pointer=="books":
+                pass
+            if pointer=="members":
+                pass
 
 
 
