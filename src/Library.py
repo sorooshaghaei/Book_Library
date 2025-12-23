@@ -120,11 +120,46 @@ class Library:
                 f.write(f"{member}\n")
 
     def load_state(self):
-        # line.strip(): Removes the invisible "newline" character (\n) from the end of each line.
-        # line.split('|'): Chops the line into a list of pieces wherever it sees a |.
-        # Section Flags: A variable that tracks "where we are" in the file.
-        with open(self.filename, "r") as f:
-            content = f.readlines()
+        self.books = [] 
+        self.members = []
+        
+        try:
+            with open(self.filename, "r") as f:
+                lines = f.readlines()
+        except FileNotFoundError:
+            print("no saved file found!")
+            return
+
+        flag = ""  # We start with no mode selected
+
+        for line in lines:
+            line = line.strip()
+
+            # --- 1. CHECK FOR HEADERS (The Switch) ---
+            if line == "BOOKS:":
+                flag = "books" # Flip switch to books
+                continue       # Skip this line (don't try to parse "BOOKS:" as a book)
+            elif line == "MEMBERS:":
+                flag = "members" # Flip switch to members
+                continue       # Skip this line
+
+            # --- 2. PROCESS DATA BASED ON CURRENT FLAG ---
+            if flag == "books":
+                # We are in book mode, so this line must be a book!
+                parts = line.split('|') # e.g., ["book1", "author1", "True"]
+                
+                title = parts[0]
+                author = parts[1]
+                available = (parts[2] == "True") # Convert string to boolean
+
+                # Create and add the book
+                new_book = Book(title, author, available)
+                self.books.append(new_book)
+
+            elif flag == "members":
+                # We are in member mode, so this line must be a member!
+                # We will write this logic in the next step
+                pass
 
 
 #  save and load file....
