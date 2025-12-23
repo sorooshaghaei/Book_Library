@@ -157,9 +157,14 @@ class Library:
                 self.books.append(new_book)
 
             elif flag == "members":
-                # We are in member mode, so this line must be a member!
-                # We will write this logic in the next step
-                pass
+                parts=line.split('|')
+
+                name=parts[0]
+                id=parts[1]
+                borrowed_books = parts [2]
+
+                new_member= Member(name,id,borrowed_books)
+                self.members.append(new_member)
 
 
 #  save and load file....
@@ -171,32 +176,34 @@ class Library:
 
 
 if __name__ == "__main__":
-    book1 = Book("book 1", "author 1")
-    book2 = Book("book 2", "author 2")
-    book3 = Book("book 3", "author 3")  # defined but not added to lib
-    fake_book1 = Book("book 1", "author 1")  # same title, different object
+    # book1 = Book("book 1", "author 1")
+    # book2 = Book("book 2", "author 2")
+    # book3 = Book("book 3", "author 3")  # defined but not added to lib
+    # fake_book1 = Book("book 1", "author 1")  # same title, different object
 
-    member1 = Member("member 1", 1, None)
-    member2 = Member("member 2", 2, None)
-    member3 = Member("member 3", 3, None)  # not added as a member
+    # member1 = Member("member 1", 1, None)
+    # member2 = Member("member 2", 2, None)
+    # member3 = Member("member 3", 3, None)  # not added as a member
 
     lib = Library()
-    lib.add_book(book1)
-    lib.add_book(book2)
-    # lib.list_books()
-    lib.add_member(member1)
-    lib.add_member(member2)
-    lib.list_members()
-
-    lib.borrow_book(member1, book1)  # book 1 was borrowed by member 1.
-    lib.borrow_book(member2, book2)
-    # lib.borrow_book(member1,fake_book1)
-
-    lib.return_book(member1, book1)
-    lib.save_state()
-    lib.load_state()
-    # lib.remove_member(member1)
-    # lib.remove_member(member2)
+    # lib.add_book(book1)
+    # lib.add_book(book2)
+    # # lib.list_books()
+    # lib.add_member(member1)
+    # lib.add_member(member2)
     # lib.list_members()
+
+    # lib.borrow_book(member1, book1)  # book 1 was borrowed by member 1.
+    # lib.borrow_book(member2, book2)
+    # # lib.borrow_book(member1,fake_book1)
+
+    # lib.return_book(member1, book1)
+    # lib.save_state()
+    lib.load_state()
+    lib.list_books()
+    lib.list_members()
+    # # lib.remove_member(member1)
+    # # lib.remove_member(member2)
+    # # lib.list_members()
 
     print()
