@@ -125,6 +125,18 @@ class Library:
                 titles = ",".join(titles)
                 f.write(f"{member.name}|{member.id}|{titles}\n")
 
+    def load_state(self):
+        self.books=[]
+        self.members=[]
+        flag=""
+        try:
+            with open(self.filename) as f:
+                lines=f.readlines()
+        except FileNotFoundError:
+            print("could not find the saved file!")
+            return
+
+
 
 #  save and load file....
 # RCR -> call nima
