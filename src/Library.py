@@ -110,6 +110,30 @@ class Library:
         member.borrowed_books.remove(book)
         print(f"{book.title} was returned by {member.name}")
 
+    def save_state(self):
+        with open(self.filename , "w") as f:
+            f.write("BOOKS:\n")
+            for book in self.books:
+                f.write(f"{book}\n")
+            f.write("MEMBERS:\n")
+            for member in self.members:
+                f.write(f"{member}\n")
+
+
+#  save and load file....
+# RCR -> call nima
+# study RF
+# study Proba
+# study PA on paper
+# study image
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     book1 = Book("book 1", "author 1")
@@ -134,7 +158,7 @@ if __name__ == "__main__":
     # lib.borrow_book(member1,fake_book1)
 
     lib.return_book(member1, book1)
-
+    lib.save_state()
 
     # lib.remove_member(member1)
     # lib.remove_member(member2)
