@@ -117,13 +117,13 @@ class Library:
                 f.write(f"{book.title}|{book.author}|{book.available}\n")
 
             f.write("MEMBERS:\n")
+
             for member in self.members:
-                # titles = ",".join(book.title for book in member.borrowed_books)
+                titles = []
+                for book in member.borrowed_books:
+                    titles.append(book.title)
+                titles = ",".join(titles)
                 f.write(f"{member.name}|{member.id}|{titles}\n")
-
-
-    
-
 
 
 #  save and load file....
