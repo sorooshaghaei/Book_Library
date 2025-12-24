@@ -27,6 +27,8 @@ class Library:
         self.members = []
         self.filename = "libstate.txt"
 
+        self.load_state() 
+
     def add_book(self, book):
         for b in self.books:
             if b.title == book.title:
@@ -204,7 +206,7 @@ if __name__ == "__main__":
 
     # lib.return_book(member1, book1)
     # lib.save_state()
-    lib.load_state()
+    # lib.load_state()
     lib.list_books()
     lib.list_members()
     # # lib.remove_member(member1)
