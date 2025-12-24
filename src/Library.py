@@ -126,30 +126,50 @@ class Library:
                 f.write(f"{member.name}|{member.id}|{titles}\n")
 
     def load_state(self):
-        self.books=[]
-        self.members=[]
-        pointer=""
+        self.books = []
+        self.members = []
+        pointer = ""
         try:
             with open(self.filename) as f:
-                lines=f.readlines()
+                lines = f.readlines()
         except FileNotFoundError:
             print("could not find the saved file!")
             return
-        
+
         for line in lines:
-            line=line.strip()
-            if line=="BOOKS:":
-                pointer="books"
+            line = line.strip()
+            if line == "BOOKS:":
+                pointer = "books"
                 continue
-            if line=="MEMBERS:":
-                pointer="members"
+            if line == "MEMBERS:":
+                pointer = "members"
                 continue
 
-            if pointer=="books":
-                pass
-            if pointer=="members":
-                pass
+            if pointer == "books":
+                title, author, available = line.split("|")
+                if available == "True":
+                    available = True
+                elif available == "False":
+                    available = False
 
+                new_book = Book(title, author, available)
+                self.books.append(new_book)
+
+            if pointer == "members":
+                name, id, borrowed_titles = line.split("|")
+                id = int(id)
+                borrowed_books = []
+
+                if borrowed_titles:
+                    titles = borrowed_titles.split(",")
+                    for title in titles:
+                        for book in self.books:
+                            if title == book.title:
+                                borrowed_books.append(book)
+                                book.available=False
+
+                new_member = Member(name, id, borrowed_books)
+                self.members.append(new_member)
 
 
 #  save and load file....
@@ -161,32 +181,32 @@ class Library:
 
 
 if __name__ == "__main__":
-    book1 = Book("book 1", "author 1")
-    book2 = Book("book 2", "author 2")
-    book3 = Book("book 3", "author 3")  # defined but not added to lib
-    # fake_book1 = Book("book 1", "author 1")  # same title, different object
+    # book1 = Book("book 1", "author 1")
+    # book2 = Book("book 2", "author 2")
+    # book3 = Book("book 3", "author 3")  # defined but not added to lib
+    # # fake_book1 = Book("book 1", "author 1")  # same title, different object
 
-    member1 = Member("member 1", 1, None)
-    member2 = Member("member 2", 2, None)
-    member3 = Member("member 3", 3, None)  # not added as a member
+    # member1 = Member("member 1", 1, None)
+    # member2 = Member("member 2", 2, None)
+    # member3 = Member("member 3", 3, None)  # not added as a member
 
     lib = Library()
-    lib.add_book(book1)
-    lib.add_book(book2)
-    # lib.list_books()
-    lib.add_member(member1)
-    lib.add_member(member2)
-    lib.list_members()
+    # lib.add_book(book1)
+    # lib.add_book(book2)
+    # # lib.list_books()
+    # lib.add_member(member1)
+    # lib.add_member(member2)
+    # lib.list_members()
 
-    lib.borrow_book(member1, book1)  # book 1 was borrowed by member 1.
-    lib.borrow_book(member1, book2)
+    # lib.borrow_book(member1, book1)  # book 1 was borrowed by member 1.
+    # lib.borrow_book(member1, book2)
     # lib.borrow_book(member1,fake_book1)
 
     # lib.return_book(member1, book1)
-    lib.save_state()
-    # lib.load_state()
-    # lib.list_books()
-    # lib.list_members()
+    # lib.save_state()
+    lib.load_state()
+    lib.list_books()
+    lib.list_members()
     # # lib.remove_member(member1)
     # # lib.remove_member(member2)
     # # lib.list_members()
