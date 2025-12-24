@@ -196,15 +196,25 @@ if __name__ == "__main__":
         print("8. Return a book by a member")
         print("9. Save and quit")
 
+        choice=input("Choose from 1 to 9: ")
 
-#         print("1. Ajouter un livre")
-#         print("2. Supprimer un livre")
-#         print("3. Lister les livres")
-#         print("4. Ajouter un membre")
-#         print("5. Supprimer un membre")
-#         print("6. Lister les membres")
-#         print("7. Emprunter un livre")
-#         print("8. Rendre un livre")
-#         print("9. Sauvegarder et Quitter")
-
-#         choice = input("Choix: ")
+        if choice==1:
+            pass
+        elif choice==2:
+            pass
+        elif choice==3:
+            pass
+        elif choice==4:
+            pass
+        elif choice==5:
+            pass
+        elif choice==6:
+            pass
+        elif choice==7:
+            pass
+        elif choice==8:
+            pass
+        elif choice==9:
+            pass
+        else:
+            print("choose a correct number from 1 to 9!!!!")
