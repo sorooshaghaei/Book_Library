@@ -27,7 +27,7 @@ class Library:
         self.members = []
         self.filename = "libstate.txt"
 
-        self.load_state() 
+        self.load_state()
 
     def add_book(self, book):
         for b in self.books:
@@ -168,21 +168,14 @@ class Library:
                         for book in self.books:
                             if title == book.title:
                                 borrowed_books.append(book)
-                                book.available=False
+                                book.available = False
 
                 new_member = Member(name, id, borrowed_books)
                 self.members.append(new_member)
 
 
-# RCR 
-# study RF
-# study Proba
-# study PA on paper
-# study image
-
-
 if __name__ == "__main__":
-    lib=Library()
+    lib = Library()
     print("\n===  Welcome to Library...  ===")
     while True:
         print("1. Add a book")
@@ -195,25 +188,31 @@ if __name__ == "__main__":
         print("8. Return a book by a member")
         print("9. Save and quit")
 
-        choice=input("Choose from 1 to 9: ")
+        choice = int(input("Choose from 1 to 9: "))
 
-        if choice==1:
+        if choice == 1:
+            title = input("Enter the title of book you want to add: ")
+            author = input("Enter the name of author: ")
+            lib.add_book(Book(title, author))
+
+        elif choice == 2:
+            title = input("Enter the title of book you want to remove: ")
+            lib.remove_book(title)
+        elif choice == 3:
             pass
-        elif choice==2:
+        elif choice == 4:
             pass
-        elif choice==3:
+        elif choice == 5:
             pass
-        elif choice==4:
+        elif choice == 6:
             pass
-        elif choice==5:
+        elif choice == 7:
             pass
-        elif choice==6:
+        elif choice == 8:
             pass
-        elif choice==7:
-            pass
-        elif choice==8:
-            pass
-        elif choice==9:
-            pass
+        elif choice == 9:
+            lib.save_state()
+            print("Bye...")
+            break
         else:
             print("choose a correct number from 1 to 9!!!!")
