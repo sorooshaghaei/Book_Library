@@ -59,13 +59,13 @@ class Library:
         self.members.append(member)
         print(f"{member.name} was added.")
 
-    def remove_member(self, member):
+    def remove_member(self, member_id):
         for m in self.members:
-            if m.id == member.id:
+            if m.id == member_id:
                 self.members.remove(m)
-                print(f"{m.name} was deleted.")
+                print(f"{m.name} with id {m.id} was deleted.")
                 return
-        print(f"{member.name} not found!")
+        print(f"id: {member_id} does not belong to anyone!")
 
     def list_members(self):
         if not self.members:
@@ -177,43 +177,49 @@ if __name__ == "__main__":
     lib = Library()
     print("\n===  Welcome to Library...  ===")
     while True:
-        print("1. Add a book")
-        print("2. Remove a book")
-        print("3. List of books")
-        print("4. Add a member")
-        print("5. Remove a member")
-        print("6. list members")
-        print("7. Borrow a book by a member")
-        print("8. Return a book by a member")
-        print("9. Save and quit")
+        try:
+            print("1. Add a book")
+            print("2. Remove a book")
+            print("3. List of books")
+            print("4. Add a member")
+            print("5. Remove a member")
+            print("6. list members")
+            print("7. Borrow a book by a member")
+            print("8. Return a book by a member")
+            print("9. Save and quit")
 
-        choice = int(input("Choose from 1 to 9: "))
+            choice = int(input("Choose from 1 to 9: "))
 
-        if choice == 1:
-            title = input("Enter the title of book you want to add: ")
-            author = input("Enter the name of author: ")
-            lib.add_book(Book(title, author))
+            if choice == 1:
+                title = input("Enter the title of book you want to add: ")
+                author = input("Enter the name of author: ")
+                lib.add_book(Book(title, author))
 
-        elif choice == 2:
-            title = input("Enter the title of book you want to remove: ")
-            lib.remove_book(title)
-        elif choice == 3:
-            lib.list_books()
-        elif choice == 4:
-            name=input("Enter the name of member you want to add: ")
-            id=int(input("What is she/he id number? "))
-            lib.add_member(Member(name,id))
-        elif choice == 5:
-            pass
-        elif choice == 6:
-            pass
-        elif choice == 7:
-            pass
-        elif choice == 8:
-            pass
-        elif choice == 9:
-            lib.save_state()
-            print("Bye...")
-            break
-        else:
-            print("choose a correct number from 1 to 9!!!!")
+            elif choice == 2:
+                title = input("Enter the title of book you want to remove: ")
+                lib.remove_book(title)
+            elif choice == 3:
+                lib.list_books()
+            elif choice == 4:
+                name=input("Enter the name of member you want to add: ")
+                id=int(input("What is she/he id number? "))
+                lib.add_member(Member(name,id))
+            elif choice == 5:
+                member_id=int(input("Enter the id of member you want to remove: "))
+                lib.remove_member(member_id)
+            elif choice == 6:
+                pass
+            elif choice == 7:
+                pass
+            elif choice == 8:
+                pass
+            elif choice == 9:
+                lib.save_state()
+                print("Bye...")
+                break
+            else:
+                print("choose a correct number from 1 to 9!!!!")
+        except ValueError as e:
+            print(e)
+        except Exception as e:
+            print(e)

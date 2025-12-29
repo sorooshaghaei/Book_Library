@@ -254,7 +254,7 @@
 #             lib.add_member(Member(n, i))
 #         elif choice == "5":
 #             i = input("ID du membre à supprimer: ")
-#             lib.remove_member(i)
+            # lib.remove_member(i)
 #         elif choice == "6":
 #             lib.list_members()
 #         elif choice == "7":
