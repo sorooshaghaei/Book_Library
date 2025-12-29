@@ -193,7 +193,7 @@ if __name__ == "__main__":
             print("9. Save and quit")
             print("10. Discard changes and quit")
 
-            choice = int(input("Choose from 1 to 9: "))
+            choice = int(input("Choose from 1 to 10: "))
 
             if choice == 1:
                 title = input("Enter the title of book you want to add: ")
