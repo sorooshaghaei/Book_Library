@@ -9,7 +9,7 @@ class Book:
 
 
 class Member:
-    def __init__(self, name, id, borrowed_books):
+    def __init__(self, name, id, borrowed_books=None):
         self.name = name
         self.id = id
         self.borrowed_books = borrowed_books or []
@@ -119,7 +119,6 @@ class Library:
                 f.write(f"{book.title}|{book.author}|{book.available}\n")
 
             f.write("MEMBERS:\n")
-
             for member in self.members:
                 titles = []
                 for book in member.borrowed_books:
@@ -199,9 +198,11 @@ if __name__ == "__main__":
             title = input("Enter the title of book you want to remove: ")
             lib.remove_book(title)
         elif choice == 3:
-            pass
+            lib.list_books()
         elif choice == 4:
-            pass
+            name=input("Enter the name of member you want to add: ")
+            id=int(input("What is she/he id number? "))
+            lib.add_member(Member(name,id))
         elif choice == 5:
             pass
         elif choice == 6:
