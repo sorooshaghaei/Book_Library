@@ -201,14 +201,24 @@ if __name__ == "__main__":
             elif choice == 3:
                 lib.list_books()
             elif choice == 4:
-                name=input("Enter the name of member you want to add: ")
-                id=int(input("What is she/he id number? "))
-                lib.add_member(Member(name,id))
+                name = input("Enter the name of member you want to add: ")
+                id = int(input("What is she/he id number? "))
+                lib.add_member(Member(name, id))
             elif choice == 5:
-                member_id=int(input("Enter the id of member you want to remove: "))
-                lib.remove_member(member_id)
+                member_id = int(input("Enter the id of member you want to remove: "))
+                yes_or_no = input(f"Deleting {member_id}? ")
+                try:
+                    if yes_or_no == "yes":
+                        lib.remove_member(member_id)
+                    elif yes_or_no == "no":
+                        print("It was not deleted.")
+                    else:
+                        print("wrong input.")
+                except ValueError as e:
+                    print(e)
+
             elif choice == 6:
-                pass
+                lib.list_members()
             elif choice == 7:
                 pass
             elif choice == 8:
