@@ -37,13 +37,17 @@ class Library:
         self.books.append(book)
         print(f"{book.title} was added.")
 
-    def remove_book(self, book):
+    def remove_book(self, book_title):
         for b in self.books:
-            if b.title == book.title:
-                self.books.remove(b)
-                print(f"{b.title} was removed.")
-                return
-        print(f"{book.title} does not exist!")
+            if b.title == book_title:
+                if b.available=="True":
+                    self.books.remove(b)
+                    print(f"{b.title} was removed.")
+                    return
+                else:
+                    print(f"{b.title} is borrowed by someone.")
+                    return
+        print(f"{book_title} does not exist!")
 
     def list_books(self):
         for book in self.books:
@@ -197,7 +201,17 @@ if __name__ == "__main__":
 
             elif choice == 2:
                 title = input("Enter the title of book you want to remove: ")
-                lib.remove_book(title)
+                sure = input("Are you sure? (answer with yes or no) ")
+                try:
+                    if sure == "yes":
+                        lib.remove_book(title)
+                    elif sure == "no":
+                        print("It was not deleted.")
+                    else:
+                        print("wrong input")
+                except ValueError as e:
+                    print(e)
+
             elif choice == 3:
                 lib.list_books()
             elif choice == 4:
@@ -206,7 +220,7 @@ if __name__ == "__main__":
                 lib.add_member(Member(name, id))
             elif choice == 5:
                 member_id = int(input("Enter the id of member you want to remove: "))
-                yes_or_no = input(f"Deleting {member_id}? ")
+                yes_or_no = input(f"Deleting {member_id}?(answer with yes or no) ")
                 try:
                     if yes_or_no == "yes":
                         lib.remove_member(member_id)
