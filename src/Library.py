@@ -40,7 +40,7 @@ class Library:
     def remove_book(self, book_title):
         for b in self.books:
             if b.title == book_title:
-                if b.available=="True":
+                if b.available:
                     self.books.remove(b)
                     print(f"{b.title} was removed.")
                     return
@@ -191,6 +191,7 @@ if __name__ == "__main__":
             print("7. Borrow a book by a member")
             print("8. Return a book by a member")
             print("9. Save and quit")
+            print("10. Discard changes and quit")
 
             choice = int(input("Choose from 1 to 9: "))
 
@@ -240,6 +241,9 @@ if __name__ == "__main__":
             elif choice == 9:
                 lib.save_state()
                 print("Bye...")
+                break
+            elif choice == 10:
+                print("Changes were not saved")
                 break
             else:
                 print("choose a correct number from 1 to 9!!!!")
