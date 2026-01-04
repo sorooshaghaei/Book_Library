@@ -77,6 +77,18 @@ class Library:
         for member in self.members:
             print(member)
 
+    def find_member_by_id(self, member_ID):
+        for member in self.members:
+            if member.id == member_ID:
+                return member
+        raise ValueError("Member not found!")
+
+    def find_book_by_title(self, book_title):
+        for book in self.books:
+            if book.title == book_title:
+                return book
+        raise ValueError("Book not found!")
+
     def borrow_book(self, member, book):
         # check member
         if member not in self.members:
@@ -235,7 +247,9 @@ if __name__ == "__main__":
             elif choice == 6:
                 lib.list_members()
             elif choice == 7:
-                pass
+                member = input("Enter the name of person who wants to borrow a book: ")
+                book = input("enter the title of book he/she wants to borrow: ")
+                lib.borrow_book(member, book)
             elif choice == 8:
                 pass
             elif choice == 9:
