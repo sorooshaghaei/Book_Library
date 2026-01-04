@@ -111,7 +111,11 @@ class Library:
         member.borrowed_books.append(book)
         print(f"{book.title} was borrowed by {member.name}.")
 
-    def return_book(self, member, book):
+    def return_book(self, member_id, book_title):
+        # find book and member
+        member = self.find_member_by_id(member_id)
+        book = self.find_book_by_title(book_title)
+
         # check member
         if member not in self.members:
             raise ValueError(f"{member.name} has not registered yet!")
@@ -252,12 +256,15 @@ if __name__ == "__main__":
                 lib.list_members()
 
             elif choice == 7:
-                member_id = int(input("Enter member ID: "))
-                book_title = input("Enter book title: ")
+                member_id = int(input("Enter id of member who wants to borrow a book: "))
+                book_title = input("Enter the title of book he/she wants to borrow: ")
                 lib.borrow_book(member_id, book_title)
 
             elif choice == 8:
-                pass
+                member_id = int(input("Enter id of member who wants to return a book: "))
+                book_title = input("Enter the title of book he/she wants to return: ")
+                lib.return_book(member_id,book_title)
+                
             elif choice == 9:
                 lib.save_state()
                 print("Bye...")
