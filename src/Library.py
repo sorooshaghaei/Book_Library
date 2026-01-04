@@ -77,7 +77,7 @@ class Library:
         for member in self.members:
             print(member)
 
-    def find_member_by_id(self, member_ID):
+    def find_member_by_id(self, member_ID: int):
         for member in self.members:
             if member.id == member_ID:
                 return member
@@ -246,10 +246,17 @@ if __name__ == "__main__":
 
             elif choice == 6:
                 lib.list_members()
+
             elif choice == 7:
-                member = input("Enter the name of person who wants to borrow a book: ")
-                book = input("enter the title of book he/she wants to borrow: ")
+
+                member_id = int(
+                    input("Enter the ID of person who wants to borrow a book: ")
+                )
+                member = lib.find_member_by_id(member_id)
+                book_title = input("enter the title of book he/she wants to borrow: ")
+                book = lib.find_book_by_title(book_title)
                 lib.borrow_book(member, book)
+
             elif choice == 8:
                 pass
             elif choice == 9:
