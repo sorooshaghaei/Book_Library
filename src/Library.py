@@ -89,7 +89,9 @@ class Library:
                 return book
         raise ValueError("Book not found!")
 
-    def borrow_book(self, member, book):
+    def borrow_book(self, member_id, book_title):
+        member = self.find_member_by_id(member_id)
+        book = self.find_book_by_title(book_title)
         # check member
         if member not in self.members:
             raise ValueError(f"{member.name} has not registered yet!")
@@ -248,14 +250,9 @@ if __name__ == "__main__":
                 lib.list_members()
 
             elif choice == 7:
-
-                member_id = int(
-                    input("Enter the ID of person who wants to borrow a book: ")
-                )
-                member = lib.find_member_by_id(member_id)
-                book_title = input("enter the title of book he/she wants to borrow: ")
-                book = lib.find_book_by_title(book_title)
-                lib.borrow_book(member, book)
+                member_id = int(input("Enter member ID: "))
+                book_title = input("Enter book title: ")
+                lib.borrow_book(member_id, book_title)
 
             elif choice == 8:
                 pass
