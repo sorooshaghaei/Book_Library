@@ -90,8 +90,10 @@ class Library:
         raise ValueError("Book not found!")
 
     def borrow_book(self, member_id, book_title):
+        # find book and member
         member = self.find_member_by_id(member_id)
         book = self.find_book_by_title(book_title)
+
         # check member
         if member not in self.members:
             raise ValueError(f"{member.name} has not registered yet!")
